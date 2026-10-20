@@ -1,115 +1,76 @@
-<h1 align="center">Brand Assets for Claude Code</h1>
+# Brand Assets for Claude Code
 
-<p align="center">
-  <strong>The open-source brand asset rights desk that is just a database and Claude Code.</strong>
-</p>
+Know which brand assets you can use, where they are being used and whose follow-up is overdue. A private database with Claude Code, Codex, OpenCode or Cursor. MIT licensed. This is the asset rights desk, with original media kept in storage you control.
 
-<p align="center">
-  Created by <a href="https://www.enterprisedna.co"><strong>Enterprise DNA</strong></a>. Free and open source. Works with Claude Code, Codex, OpenCode or Cursor.
-</p>
+## Three ways to use it
 
-<!-- three-doors -->
-<table align="center">
-  <tr>
-    <td align="center"><strong>Do it yourself</strong><br/>Clone it, run it, own it. Free, MIT.<br/><a href="#quick-start">Quick start</a></td>
-    <td align="center"><strong>We customise it</strong><br/>Your fields, your rules, your Brandkit data brought across.<br/><a href="https://enterprisedna.co/omni/book/?utm_source=github&utm_medium=readme&utm_campaign=brandkit">Book a call</a></td>
-    <td align="center"><strong>We run it for you</strong><br/>Installed, connected and operated inside Omni. Setup fee, then a retainer.<br/><a href="https://enterprisedna.co/omni/instead-of/brandkit?utm_source=github&utm_medium=readme&utm_campaign=brandkit">How it works</a></td>
-  </tr>
-</table>
+- **Do it yourself:** run the free code and own the database. Hosting, media storage and your agent subscription are your costs.
+- **We customise it:** Enterprise DNA brings your Brandkit metadata across and builds your fields, rules, staff screens and storage connections, with a different stack where you need one.
+- **We run it for you:** Omni by Enterprise DNA installs, connects and operates your version. One setup fee, then a retainer. [Book a call](https://enterprisedna.co/omni/book/?offer=replace-software&utm_campaign=brandkit&utm_medium=readme).
 
-<p align="center">
-  <a href="#what-is-this">What is this</a> &bull;
-  <a href="#why-no-front-end">Why no front end</a> &bull;
-  <a href="#quick-start">Quick start</a> &bull;
-  <a href="#the-commands">Commands</a> &bull;
-  <a href="#instead-of-brandkit">Instead of Brandkit</a> &bull;
-  <a href="#want-it-installed-and-run-for-you">Installed for you</a> &bull;
-  <a href="#license">License</a>
-</p>
-
-<p align="center">
-  <img src="https://img.shields.io/badge/Node-20+-339933?style=flat-square" alt="Node 20+" />
-  <img src="https://img.shields.io/badge/PostgreSQL-any-336791?style=flat-square" alt="PostgreSQL" />
-  <img src="https://img.shields.io/badge/PGlite-embedded-3ecf8e?style=flat-square" alt="PGlite" />
-  <img src="https://img.shields.io/badge/License-MIT-yellow?style=flat-square" alt="MIT License" />
-</p>
-
----
-
-## What is this
-
-Brand Assets for Claude Code does the job you pay Brandkit for, as a Postgres database and a set of agent commands. There is no web front end. You open the folder in [Claude Code](https://claude.com/claude-code) (or Codex, OpenCode, Cursor: see `AGENTS.md`) and ask for what you want in plain language. It runs the right query, and it can answer questions the Brandkit dashboard cannot.
-
-<!-- TODO(author): the annual bill. One sentence: what a 10 to 50 person business typically pays Brandkit per year, all in, with a source. -->
-
-Want the same thing with a web front end, or built on a different stack? That is a customisation, and it is exactly what Enterprise DNA does: [book a call](https://enterprisedna.co/omni/book/?utm_source=github&utm_medium=readme&utm_campaign=brandkit).
-
-<!-- TODO(author): two or three sentences on what this specific product covers and who it is for. -->
-
-## Why no front end
-
-- The front end was only ever there because the database was hard to talk to. That is no longer true.
-- Your data sits in plain Postgres tables you own. Any tool can read them. No export, no lock-in.
-- No seats, no tiers, no add-ons. Read [docs/why-no-front-end.md](docs/why-no-front-end.md) for the honest trade-offs too.
-
-## Quick start
-
-Sixty seconds, no database install (an embedded Postgres runs inside Node):
+## Try the fictional demo
 
 ```bash
-git clone https://github.com/Enterprise-DNA-OS/brand-assets-for-claude-code.git
-cd brand-assets-for-claude-code
 npm install
+npm test
 npm run demo
 ```
 
-Then open the folder in Claude Code and type a slash command. <!-- TODO(author): name the first command to try. -->
+The demo uses a temporary database and removes it afterward. `npm run demo -- --keep` retains the private documents, views and captured command output in the displayed temporary directory. For a persistent fictional workspace, run npm run migrate then npm run seed. Seeding refuses a named business workspace.
 
-### Use it with your own Postgres or Supabase
+## Start your own desk
 
-Copy `.env.example` to `.env`, set `DATABASE_URL`, then `npm run migrate`. Same commands, shared data, no per-seat fee.
-
-## The commands
-
-<!-- TODO(author): a table of the slash commands in .claude/commands and what each one does. -->
-
-| Command | What it does |
-|---|---|
-| `/...` | ... |
-
-## Instead of brandkit
-
-<!-- TODO(author): how to bring data across from Brandkit; link docs/replace-brandkit.md -->
-
-## Architecture
-
-```
-brand-assets-for-claude-code/
-  CLAUDE.md                 how the operator wants this run (routing table + house rules)
-  AGENTS.md                 the same, for Codex / OpenCode / Cursor / Gemini CLI
-  .claude/commands/         the slash commands
-  scripts/                  the CLI the commands drive
-  scripts/lib/db.mjs        one adapter: DATABASE_URL (pg) or embedded PGlite
-  supabase/migrations/      plain SQL schema
-  supabase/seed.sql         demo data
-  docs/                     the thesis and the migration guide
+```bash
+npm run migrate
+node scripts/assets.mjs init --name="Your business"
+node scripts/assets.mjs import brandkit imports/assets.csv --dry-run --actor="Your name"
+node scripts/assets.mjs import brandkit imports/assets.csv --actor="Your name"
 ```
 
-## Built for coding agents
+The [switching guide](docs/replace-brandkit.md) lists every mapped field and exclusion. Original files and actual licence evidence move separately. Imported records start on hold. A Brandkit approval flag is not permission to use an asset. Identical repeat imports are skipped; changed source rows stop the whole batch for reconciliation.
 
-The database, CLI and command recipes work with Claude Code, Codex, OpenCode or Cursor. Ask your coding agent for a new command and have it implement and test the change against the same records.
+DATABASE_URL selects private Postgres; otherwise DATA_DIR selects local PGlite. OUTPUT_DIR relocates private output. Use one trusted operator per database. No authentication, public portal or media-processing service is supplied. Keep imports, exports, drafts and storage credentials out of git.
 
-## Contributing
+## The weekly rituals
 
-Issues and pull requests are welcome. Keep the shape: plain SQL, a small CLI, a slash command per recurring job, no front end.
+Use /rights-watch for expiry dates, /campaign-check before a campaign, /withdrawals for uses needing action, /privacy-review for retention questions and /weekly-review for Monday's handover. /record-rights keeps evidence beside exact permission scope. /plan-use rejects a campaign outside that scope. /record-live and /confirm-removed record work already confirmed outside this system. They never publish or remove anything.
 
-## Want it installed and run for you?
+There are 28 CLI operations and 32 slash recipes. [Full syntax](docs/cli.md). /compliance checks the records against [cited NZ rules](docs/compliance.md), without pretending a stored reference certifies legal rights. Every change has an actor label and append-only history.
 
-Enterprise DNA installs Brand Assets for Claude Code for your business, migrates your Brandkit data, connects it to the rest of your tools, and runs it for you as part of **Omni**, our managed Command Center. One setup fee, then a monthly retainer.
+## Documents and read-only views
 
-- Book a call: [enterprisedna.co/omni/book](https://enterprisedna.co/omni/book/?offer=replace-software&utm_source=github&utm_medium=readme&utm_campaign=brandkit)
-- Read more: [enterprisedna.co/omni/instead-of/brandkit](https://enterprisedna.co/omni/instead-of/brandkit?utm_source=github&utm_medium=readme&utm_campaign=brandkit)
+Set brand.json to your business name, logo and colours. npm run docs renders a rights register, campaign usage sheet and withdrawal brief for each asset. npm run view renders the week, permission dates and campaign checks. Text is escaped and output stays private. [What a screen adds](docs/why-no-front-end.md).
 
-## License
+## Ten questions answered from your records
 
-MIT. Copyright (c) 2026 Enterprise DNA.
+/insights answers these today. These are working joins across your records, not claims that Brandkit cannot be configured to answer them.
+
+1. Which live placements have an expired permission?
+2. Which campaigns still use withdrawn assets?
+3. Which people own overdue follow-ups?
+4. Which assets have no permission history?
+5. Which active assets have an unknown privacy scope?
+6. Which channels have permissions ending within 30 days?
+7. Which personal images need a retention review?
+8. Which campaign uses exceed their recorded rights?
+9. Which assets are on hold without a follow-up?
+10. Which problem placements have no open asset follow-up?
+
+## Your first hour: ten things to ask for
+
+1. Show permissions ending this month.
+2. Find campaigns still using withdrawn images.
+3. Show which image records have no permission evidence.
+4. Import a test copy of our Brandkit metadata.
+5. Record the written licence we have checked.
+6. Check an Australian website campaign against its permission.
+7. Draft a withdrawal follow-up for the recorded owner.
+8. Put our name on the rights register.
+9. Add a read-only view by campaign owner.
+10. Add our agency job reference through /customise.
+
+## Verification and operating limits
+
+[Verification](docs/verification.md) records the checks run. Tests exercise every CLI operation, safe imports, scope and date rejection, review controls, history, private exports and HTML escaping. The workflow covers Windows, Linux and Postgres.
+
+The base does not search image pixels, host originals, grant legal permission, interpret contracts, send notices or remove external content. Your actual evidence and file locations must be checked by a person. Back up the database and test restoring it. Actor labels are not verified identities.

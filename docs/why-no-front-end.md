@@ -1,24 +1,9 @@
-# Why there is no front end
+# Why this is a rights desk
 
-Brandkit is a database with a subscription. The tables underneath it are ordinary: a few entities, a few relationships, a handful of workflows you repeat every week. What you pay for is the layer on top that lets people who do not write SQL get at those tables. Screens, filters, dashboards, forms.
+The recurring work is checking permission dates, recording where an image is being used, assigning a follow-up and confirming withdrawal. A database and a conversation are enough for a trusted operator doing those jobs.
 
-That layer used to be the whole product, because talking to a database was hard. It is not hard any more. Open this folder in Claude Code, describe what you want, and it writes the query, runs it, and explains the answer. Ask a question the dashboard never had a chart for and you still get an answer.
+npm run view creates read-only HTML for the week, permissions and campaign checks. npm run docs creates the rights register, campaign usage sheet and withdrawal brief. These are private documents with no action buttons or web server.
 
-## What you gain
+A visual portal gives thumbnail browsing, drag and drop uploads, mobile access, delivery links and staff sign-in. This base does not provide those features, image or video processing, offline synchronisation, a content delivery service or public sharing. Original media stays in storage you manage. Enterprise DNA builds the agreed staff screens, storage and connections into your version. No claim of replacing the full Brandkit platform without that work is made.
 
-- **Better answers.** A dashboard shows what the vendor decided to chart. Here you ask your own question, in your own words, and get it answered against your own data.
-- **No seats.** Everyone who needs to look can look. The bill does not grow with headcount.
-- **Your data in your Postgres.** Plain tables. Back them up, query them from anything, leave any time. There is no export step because there is nothing to leave.
-- **A process that matches you.** When your way of working changes, you add a command. You do not wait for a feature request to clear.
-
-## What you give up
-
-- **A visual board.** Stages are a table you ask about, not cards you drag.
-- **A phone app.** It runs where Claude Code runs.
-- **A vendor help desk.** This is open source. Enterprise DNA supports the installed version for businesses that want someone to call.
-
-## Who this fits
-
-Small teams who already use Claude Code, or who would rather learn to ask than learn another interface. If your team needs a screen to look at all day, keep Brandkit. If you need the answers more than the screens, this is cheaper, faster and yours.
-
-Installed and run for you: https://enterprisedna.co/omni/instead-of/brandkit
+Set brand.json to your business name, colours and local logo. The local path is resolved by the browser relative to each output; use an absolute local file URL or arrange matching files when transferring a document. Treat brand configuration and view queries as trusted code. Do not share private output publicly. Actor labels are not sign-in identities.

@@ -1,11 +1,61 @@
 [
   {
-    "name": "example",
-    "title": "TODO(author): the first document this industry must produce",
-    "for_each": "select gen_random_uuid() as id, 'Example' as name",
+    "name": "rights-register",
+    "title": "Asset rights register",
+    "for_each": "select id,name from assets order by name",
     "file": "name",
     "sections": [
-      { "title": "Details", "sql": "select 'replace me' as item, $1::text as record_id" }
+      {
+        "title": "Asset",
+        "sql": "select name,filename,credit,usage_note,file_ref,status,release_date,expiry_date,personal_data,lawful_purpose,privacy_review from assets where id=$1",
+        "note": "Internal record, not a permission grant or a sent notice."
+      },
+      {
+        "title": "Permission evidence",
+        "sql": "select licensor,channel,territory,purpose,starts_on,ends_on,evidence_ref,revoked from permissions where asset_id=$1 order by ends_on",
+        "note": "Internal record, not a permission grant or a sent notice."
+      },
+      {
+        "title": "History",
+        "sql": "select action,actor,detail,created_at from history where asset_id=$1 order by created_at",
+        "note": "Internal record, not a permission grant or a sent notice."
+      }
+    ]
+  },
+  {
+    "name": "usage-sheet",
+    "title": "Campaign usage sheet",
+    "for_each": "select id,name from assets order by name",
+    "file": "name",
+    "sections": [
+      {
+        "title": "Asset",
+        "sql": "select name,credit,usage_note from assets where id=$1",
+        "note": "Internal record, not a permission grant or a sent notice."
+      },
+      {
+        "title": "Campaigns",
+        "sql": "select campaign,owner,location,starts_on,ends_on,status,check_result from campaign_check where asset_id=$1",
+        "note": "Internal record, not a permission grant or a sent notice."
+      }
+    ]
+  },
+  {
+    "name": "withdrawal-brief",
+    "title": "Withdrawal follow-up draft",
+    "for_each": "select id,name from assets order by name",
+    "file": "name",
+    "sections": [
+      {
+        "title": "Action required",
+        "sql": "select campaign,owner,location,check_result from campaign_check where asset_id=$1 and check_result<>'Within recorded scope'",
+        "note": "Internal record, not a permission grant or a sent notice."
+      },
+      {
+        "title": "Follow-ups",
+        "sql": "select note,owner,due_on,done from followups where asset_id=$1",
+        "note": "Internal record, not a permission grant or a sent notice."
+      }
     ]
   }
 ]

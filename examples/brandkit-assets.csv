@@ -1,0 +1,3 @@
+id,filename,asset_type,caption,description,credit,usage_note,release,expiry,archived,unapproved,version,tags,licenses,brands
+9001,harbour-launch.jpg,Image,Harbour launch image,Fictional source record,Demo Photographer,Website only,2026-01-01,2027-12-31,FALSE,FALSE,1,Harbour;Launch,Demo NZ website,Harbour
+9002,retired-mark.svg,Logo,Retired mark,Fictional retired mark,Demo Designer,Historical reference,2025-01-01,2026-01-01,TRUE,FALSE,2,Archive,Demo licence,Harbour

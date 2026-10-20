@@ -1,11 +1,13 @@
 ---
-description: Check the records against the rules this industry lives under (the ones listed in docs/compliance.md) and report what is missing, late, or about to breach, with the rule cited.
+description: "compliance"
 ---
 
-1. Read `docs/compliance.md`. Each rule has a name, the source it comes from, what a breach looks like in the data, and the SQL or command that finds it.
-2. Run each check. Use the CLI's `--json` output or a direct query through `scripts/lib/db.mjs`.
-3. Report as a table: rule, count, the worst example (name and days), the source. Order by severity: breached first, then due within 7 days, then clean.
-4. For anything breached, draft the fix the operator can approve: the record to update, the notice to send (draft to `drafts/`, never send), or the task to add.
-5. If a rule in `docs/compliance.md` is out of date, say so and stop. Do not guess at law. The operator confirms the rule, then you update the doc and the check together.
+# compliance
 
-Nothing here is legal advice. The doc records the rules the operator has told the system to enforce, with sources, and this command checks the data against them.
+Read CLAUDE.md and docs/cli.md. Run `node scripts/assets.mjs compliance `. Replace placeholders with the operator's records. Never pass angle brackets to a shell. Quote names and values as separate arguments.
+
+Read /show and /history before changing or drafting about an asset. Ask for any missing fact; never infer permission from a caption, credit or licence label. For a write, use the operator's name as actor and report the changed record. Ambiguous matches require the exact id. Read commands support --json.
+
+Show the result here with names, dates and evidence references. Empty results mean no matching records, not proof of compliance.
+
+Never send, publish, delete media, sign a licence or change a live website. Recording a placement as live or removed records an action already confirmed outside this system. Keep output private.
